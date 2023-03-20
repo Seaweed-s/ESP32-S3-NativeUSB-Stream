@@ -19,7 +19,7 @@ for onePort in ports:   # Prints COM ports
 print("setting baudrate")
 serialInst.baudrate = 2000000
 print("baudrate set")
-serialInst.port = "COM8"
+serialInst.port = "COM15"
 serialInst.setDTR(False)
 serialInst.setRTS(False)
 serialInst.open()

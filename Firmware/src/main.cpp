@@ -11,7 +11,8 @@
 #define FREENOVE_S3
 #include "camera_pins2.h"
 #include "USB.h"
-//#include "ws2812.h"
+#include "ws2812.h"
+//#include "Freenove_WS2812_Lib_for_ESP32.h"
 
 #define BAUD_RATE 2000000
 
@@ -28,7 +29,11 @@
 
 #define LED_BUILTIN  2
 
+//#define WS2812_PIN  48
+
 USBCDC SerialUSB;
+
+//Freenove_ESP32_WS2812 rgbLed = Freenove_ESP32_WS2812(1, WS2812_PIN, 1, TYPE_GRB);
 
 camera_fb_t* fb;
 
@@ -117,11 +122,13 @@ void grabImage(){
 
 void setup()
 {
+  //ws2812Init();
   Serial.begin(BAUD_RATE);
   SerialUSB.begin(2000000);
   //while(!SerialUSB);
-  //ws2812Init();
   pinMode(LED_BUILTIN, OUTPUT);
+
+  ws2812Init();
 
   cameraInit();
 }
@@ -149,6 +156,7 @@ void loop() {
   delay(1000);                       // wait for a second
   digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
   delay(1000);                       // wait for a second
+  ws2812SetColor(0);
   //ws2812SetColor(0);
   Serial.println("Serial Working");
   SerialUSB.println("USB Working");
